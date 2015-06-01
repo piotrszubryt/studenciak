@@ -1,0 +1,4 @@
+services:
+#    studenciak.example:
+#        class: Studenciak\StudentBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

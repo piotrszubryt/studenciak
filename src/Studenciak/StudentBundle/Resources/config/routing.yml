@@ -1,0 +1,15 @@
+studenciak_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: StudenciakBundle:Page:index }
+
+index:
+    pattern:  /
+    defaults: { _controller: StudenciakBundle:Page:index }
+
+contact2:
+     path:     /contact
+     defaults: { _controller: StudenciakBundle:Page:contact }
+
+course:
+     path:     /course
+     defaults: { _controller: StudenciakBundle:Page:course }

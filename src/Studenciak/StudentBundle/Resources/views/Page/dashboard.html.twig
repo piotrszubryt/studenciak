@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% stylesheets 
+    'bundles/studenciak/fonts/fonts.css' 
+    'bundles/studenciak/css/main.css'
+    'bundles/studenciak/fonts/line-icons/simple-line-icons.css'
+    filter='cssrewrite' 
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+</head>
+<body>
+    <div class="main">
+        <div class="db-side">
+           <div class="db-logotype">
+               <a href="#">
+                {% image 'bundles/studenciak/images/studenciak-logotyp.png' %}
+                    <img src="{{ asset_url }}" alt="Studenciak" />
+                {% endimage %}
+               </a>
+           </div>
+            <div class="db-side-group active" data-label="Ogólne">
+                <a class="db-side-button active" href="/course">
+                    <i class="icon-graduation"></i> <span>Kursy</span>
+                </a>
+                <a class="db-side-button" href="/repositories">
+                    <i class="icon-notebook"></i> <span>Repozytoria</span>
+                </a>
+                <a class="db-side-button" href="{{ path('course') }}">
+                    <i class="icon-drawer"></i> <span>Grupy</span>
+                </a>
+                <a class="db-side-button" href="/diary">
+                    <i class="icon-book-open"></i> <span>Dziennik</span>
+                </a>
+            </div>
+            <div class="db-side-group" data-label="Użytkownik">
+                <a class="db-side-button active" href="/profile">
+                    <i class="icon-user-female"></i> <span>Mój profil</span>
+                </a>
+                <a class="db-side-button" href="/logout">
+                    <i class="icon-logout"></i> <span>Wyloguj</span>
+                </a>
+            </div>
+        </div>
+        <div class="db-side-cloak"></div>
+        <div class="db-view">
+            <div class="db-breadcrumbs">
+                <a class="db-brdcmb-item" href="#">
+                    <i class="icon-home"></i>
+                </a>
+                <a class="db-brdcmb-item" href="#">
+                    Ogólne
+                </a>
+                <a class="db-brdcmb-item" href="#">
+                    Kursy
+                </a>
+            </div>
+            <h2>Moje kursy</h2>
+            <table>
+                <tr><th data-sorted="desc">Nazwa</th><th>Prowadzący</th><th>Postęp</th><th></th></tr>
+                <tr>
+                    <td>Metody autoprezentacji</td>
+                    <td>dr Janusz Bąk</td>
+                    <td>20%</td>
+                    <td><i class="icon-settings"></i></td>
+                </tr>
+                <tr>
+                    <td>Obiektowe bazy danych</td>
+                    <td>dr Stanisława Plichta</td>
+                    <td>66,6%</td>
+                    <td><i class="icon-settings"></i></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

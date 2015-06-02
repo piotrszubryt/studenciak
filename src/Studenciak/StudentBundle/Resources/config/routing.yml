@@ -1,15 +1,28 @@
-studenciak_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: StudenciakBundle:Page:index }
-
 index:
     pattern:  /
     defaults: { _controller: StudenciakBundle:Page:index }
 
-contact2:
-     path:     /contact
-     defaults: { _controller: StudenciakBundle:Page:contact }
-
 course:
      path:     /course
      defaults: { _controller: StudenciakBundle:Page:course }
+
+repo:
+     path:     /repo
+     defaults: { _controller: StudenciakBundle:Page:repo }
+
+groups:
+     path:     /groups
+     defaults: { _controller: StudenciakBundle:Page:groups }
+
+diary:
+     path:     /diary
+     defaults: { _controller: StudenciakBundle:Page:diary }
+
+profile:
+     path:     /profile
+     defaults: { _controller: StudenciakBundle:Page:profile }
+
+logout:
+     path:     /logout
+     defaults: { _controller: StudenciakBundle:Page:logout }
+

@@ -14,6 +14,7 @@
     {% endstylesheets %}
 </head>
 <body>
+{% block body %}{% endblock %}
     <div class="main">
         <div class="db-side">
            <div class="db-logotype">
@@ -23,25 +24,25 @@
                 {% endimage %}
                </a>
            </div>
-            <div class="db-side-group active" data-label="Ogólne">
-                <a class="db-side-button active" href="/course">
+            <div class="db-side-group {% block general %}{% endblock %}" data-label="Ogólne">
+                <a class="db-side-button {% block course %}{% endblock %}" href="{{ path('course') }}">
                     <i class="icon-graduation"></i> <span>Kursy</span>
                 </a>
-                <a class="db-side-button" href="/repositories">
+                <a class="db-side-button {% block repo %}{% endblock %}" href="{{ path('repo') }}">
                     <i class="icon-notebook"></i> <span>Repozytoria</span>
                 </a>
-                <a class="db-side-button" href="{{ path('course') }}">
+                <a class="db-side-button {% block groups %}{% endblock %}" href="{{ path('groups') }}">
                     <i class="icon-drawer"></i> <span>Grupy</span>
                 </a>
-                <a class="db-side-button" href="/diary">
+                <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
                     <i class="icon-book-open"></i> <span>Dziennik</span>
                 </a>
             </div>
-            <div class="db-side-group" data-label="Użytkownik">
-                <a class="db-side-button active" href="/profile">
-                    <i class="icon-user-female"></i> <span>Mój profil</span>
+            <div class="db-side-group {% block user %}{% endblock %}" data-label="Użytkownik">
+                <a class="db-side-button {% block profile %}{% endblock %}" href="{{ path('profile') }}">
+                    <i class="icon-user-male"></i> <span>Mój profil</span>
                 </a>
-                <a class="db-side-button" href="/logout">
+                <a class="db-side-button {% block logout %}{% endblock %}" href="{{ path('logout') }}">
                     <i class="icon-logout"></i> <span>Wyloguj</span>
                 </a>
             </div>

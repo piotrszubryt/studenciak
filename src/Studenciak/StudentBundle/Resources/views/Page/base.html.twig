@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Studenciak{% endblock %}</title>
     {% stylesheets 
     'bundles/studenciak/fonts/fonts.css' 
     'bundles/studenciak/css/main.css'
@@ -12,71 +12,54 @@
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+
+    {% block head %}{% endblock %}
 </head>
 <body>
-{% block body %}{% endblock %}
+    {% block body %}{% endblock %}
     <div class="main">
         <div class="db-side">
            <div class="db-logotype">
                <a href="#">
                 {% image 'bundles/studenciak/images/studenciak-logotyp.png' %}
-                    <img src="{{ asset_url }}" alt="Studenciak" />
+                <img src="{{ asset_url }}" alt="Studenciak" />
                 {% endimage %}
-               </a>
-           </div>
-            <div class="db-side-group {% block general %}{% endblock %}" data-label="Ogólne">
-                <a class="db-side-button {% block course %}{% endblock %}" href="{{ path('course') }}">
-                    <i class="icon-graduation"></i> <span>Kursy</span>
-                </a>
-                <a class="db-side-button {% block repo %}{% endblock %}" href="{{ path('repo') }}">
-                    <i class="icon-notebook"></i> <span>Repozytoria</span>
-                </a>
-                <a class="db-side-button {% block groups %}{% endblock %}" href="{{ path('groups') }}">
-                    <i class="icon-drawer"></i> <span>Grupy</span>
-                </a>
-                <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
-                    <i class="icon-book-open"></i> <span>Dziennik</span>
-                </a>
-            </div>
-            <div class="db-side-group {% block user %}{% endblock %}" data-label="Użytkownik">
-                <a class="db-side-button {% block profile %}{% endblock %}" href="{{ path('profile') }}">
-                    <i class="icon-user-male"></i> <span>Mój profil</span>
-                </a>
-                <a class="db-side-button {% block logout %}{% endblock %}" href="{{ path('logout') }}">
-                    <i class="icon-logout"></i> <span>Wyloguj</span>
-                </a>
-            </div>
+            </a>
         </div>
-        <div class="db-side-cloak"></div>
-        <div class="db-view">
-            <div class="db-breadcrumbs">
-                <a class="db-brdcmb-item" href="#">
-                    <i class="icon-home"></i>
-                </a>
-                <a class="db-brdcmb-item" href="#">
-                    Ogólne
-                </a>
-                <a class="db-brdcmb-item" href="#">
-                    Kursy
-                </a>
-            </div>
-            <h2>Moje kursy</h2>
-            <table>
-                <tr><th data-sorted="desc">Nazwa</th><th>Prowadzący</th><th>Postęp</th><th></th></tr>
-                <tr>
-                    <td>Metody autoprezentacji</td>
-                    <td>dr Janusz Bąk</td>
-                    <td>20%</td>
-                    <td><i class="icon-settings"></i></td>
-                </tr>
-                <tr>
-                    <td>Obiektowe bazy danych</td>
-                    <td>dr Stanisława Plichta</td>
-                    <td>66,6%</td>
-                    <td><i class="icon-settings"></i></td>
-                </tr>
-            </table>
+        <div class="db-side-group {% block general %}{% endblock %}" data-label="Ogólne">
+            <a class="db-side-button {% block course %}{% endblock %}" href="{{ path('course') }}">
+                <i class="icon-graduation"></i> <span>Kursy</span>
+            </a>
+            <a class="db-side-button {% block repo %}{% endblock %}" href="{{ path('repo') }}">
+                <i class="icon-notebook"></i> <span>Repozytoria</span>
+            </a>
+            <a class="db-side-button {% block groups %}{% endblock %}" href="{{ path('groups') }}">
+                <i class="icon-drawer"></i> <span>Grupy</span>
+            </a>
+            <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
+                <i class="icon-book-open"></i> <span>Dziennik</span>
+            </a>
+        </div>
+        <div class="db-side-group {% block user %}{% endblock %}" data-label="Użytkownik">
+
+            {% if app.session.get('name') == false %}
+            <a class="db-side-button {% block login %}{% endblock %}" href="{{ path('login') }}">
+                <i class="icon-logout"></i> <span>Zaloguj</span>
+            </a>
+            {% else %}
+            <a class="db-side-button {% block profile %}{% endblock %}" href="{{ path('profile') }}">
+                <i class="icon-user-male"></i> <span>Mój profil</span>
+            </a>
+            <a class="db-side-button {% block logout %}{% endblock %}" href="{{ path('logout') }}">
+                <i class="icon-logout"></i> <span>Wyloguj</span>
+            </a>
+            {% endif %}
         </div>
     </div>
+    <div class="db-side-cloak"></div>
+    <div class="db-view">
+      {% block view %}{% endblock %}
+  </div>
+</div>
 </body>
 </html>

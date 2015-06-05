@@ -1,0 +1,14 @@
+composer update
+pobiera to czego nie ma na githubie
+
+
+php app/console assets:install --symlink web
+kopiuje obrazki z src do web
+
+
+php app/console doctrine:generate:entities Studenciak
+generuje encje
+
+
+php app/console doctrine:schema:update --force
+uaktualnia baze danych

@@ -1,0 +1,27 @@
+{% extends 'StudenciakBundle:Page:base.html.twig' %}
+
+{% block title %}Osoby{% endblock %}
+
+{% block general %}active{% endblock %}
+{% block persons %}active{% endblock %}
+
+{% block view %}
+  <table>
+  <tr>
+  <th style="width: 10%">Avatar</th>
+  <th style="width: 40%">Imię i nazwisko</th>
+  <th style="width: 30%">E-mail</th>
+  <th style="width: 10%">Aktywowany</th>
+  <th style="width: 10%">Admin</th>
+  </tr>
+  {% for osoba in osoby %}
+  <tr>
+  <td><img src="{{ osoba.getZdjecie }}" /></td>
+  <td>{{ osoba.getNazwisko }} </td>
+  <td>{{ osoba.getEmail }} </td>
+  <td>{{ osoba.getAktywny }} </td>
+  <td>{{ osoba.getAdmin }} </td>
+  </tr>
+  {% endfor %}
+  </table>
+{% endblock %}

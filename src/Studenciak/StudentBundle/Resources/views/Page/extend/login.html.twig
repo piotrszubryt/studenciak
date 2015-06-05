@@ -3,10 +3,10 @@
 {% block title %}Logowanie{% endblock %}
 
 {% block head %}
- <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="935126113867-oe3p7844mr22v5eoo0aj6kctkej35650.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="935126113867-oe3p7844mr22v5eoo0aj6kctkej35650.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 {% endblock %}
 
 {% block user %}active{% endblock %}
@@ -14,13 +14,13 @@
 
 {% block view %}
 
- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div><br /><br />
- <div id="zalogowano"></div>
- <script>
+<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div><br /><br />
+<div id="zalogowano"></div>
+<script>
   function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
         console.log("Name: " + profile.getName());
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail());
@@ -31,17 +31,27 @@
 
 
         $.post('{{path('Ajax_Update_MyData')}}',               
-          {id: profile.getId(), name: profile.getName(), image: profile.getImageUrl(), email: profile.getEmail()}, 
+          {name: profile.getName(), image: profile.getImageUrl(), email: profile.getEmail()}, 
           function(response){
-            
+           
+            if (response.code == "niezarejestrowany") 
+            {
+              $("#zalogowano").html(profile.getName() + " - zostałeś zarejestrowany. Będziesz mógł zalogować się, po akceptacji Twojego konta przez administratora");
+            }
+            if (response.code == "niezaakceptowany")
+            {
+             $("#zalogowano").html(profile.getName() + " - będziesz mógł zalogować się, po akceptacji Twojego konta przez administratora");
+           }
+           if (response.code == "akceptowany")
+           {
+             $("#zalogowano").html(profile.getName() + " - zostałeś zalogowany. <br /><a href='{{path('profile')}}'>Kliknij, aby zobaczyć swój profil</a>");
+           }
 
-$("#zalogowano").html(profile.getName() + " zostałeś zalogowany. <br /><a href='{{path('profile')}}'>Kliknij, aby zobaczyć swój profil</a>");
-
-          }, "json").fail(function() {alert("Cos poszlo nie tak"); });
+         }, "json").fail(function() {alert("Cos poszlo nie tak"); });
       }
     </script>
 
     <div id="result"></div>
 
 
-{% endblock %}
+    {% endblock %}

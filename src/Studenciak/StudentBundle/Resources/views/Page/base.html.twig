@@ -36,13 +36,18 @@
             <a class="db-side-button {% block groups %}{% endblock %}" href="{{ path('groups') }}">
                 <i class="icon-drawer"></i> <span>Grupy</span>
             </a>
+            {% if app.session.get('admin') == 1 %}
+            <a class="db-side-button {% block persons %}{% endblock %}" href="{{ path('persons') }}">
+                <i class="icon-drawer"></i> <span>Osoby</span>
+            </a>
+            {% endif %}
             <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
                 <i class="icon-book-open"></i> <span>Dziennik</span>
             </a>
         </div>
         <div class="db-side-group {% block user %}{% endblock %}" data-label="Użytkownik">
 
-            {% if app.session.get('name') == false %}
+            {% if app.session.get('email') == false %}
             <a class="db-side-button {% block login %}{% endblock %}" href="{{ path('login') }}">
                 <i class="icon-logout"></i> <span>Zaloguj</span>
             </a>

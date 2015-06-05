@@ -3,37 +3,47 @@ index:
     defaults: { _controller: StudenciakBundle:Page:index }
 
 course:
-     path:     /course
-     defaults: { _controller: StudenciakBundle:Page:course }
+    path:     /course
+    defaults: { _controller: StudenciakBundle:Page:course }
 
 repo:
-     path:     /repo
-     defaults: { _controller: StudenciakBundle:Page:repo }
+    path:     /repo
+    defaults: { _controller: StudenciakBundle:Page:repo }
 
 groups:
-     path:     /groups
-     defaults: { _controller: StudenciakBundle:Page:groups }
+    path:     /groups
+    defaults: { _controller: StudenciakBundle:Page:groups }
+
+persons:
+    path: /persons
+    defaults: { _controller: StudenciakBundle:Page:persons }
 
 diary:
-     path:     /diary
-     defaults: { _controller: StudenciakBundle:Page:diary }
+    path:     /diary
+    defaults: { _controller: StudenciakBundle:Page:diary }
 
 profile:
-     path:     /profile
-     defaults: { _controller: StudenciakBundle:Page:profile }
+    path:     /profile
+    defaults: { _controller: StudenciakBundle:Page:profile }
 
 logout:
-     path:     /logout
-     defaults: { _controller: StudenciakBundle:Page:logout }
+    path:     /logout
+    defaults: { _controller: StudenciakBundle:Page:logout }
 
 login:
-     path:     /login
-     defaults: { _controller: StudenciakBundle:Page:login }
+    path:     /login
+    defaults: { _controller: StudenciakBundle:Page:login }
 
 Ajax_Update_MyData:
-  pattern:  /update/data/from/ajax/call
-  defaults: { _controller: StudenciakBundle:Page:AjaxUpdateData }
+    pattern:  /update/data/from/ajax/call
+    defaults: { _controller: StudenciakBundle:Page:AjaxUpdateData }
 
 logoutSession:
-     path:     /logoutSession
-     defaults: { _controller: StudenciakBundle:Page:logoutSession }
+    path:     /logoutSession
+    defaults: { _controller: StudenciakBundle:Page:logoutSession }
+
+dodaj:
+    path: /dodaj
+    defaults: { _controller: StudenciakBundle:Page:dodaj }
+
+

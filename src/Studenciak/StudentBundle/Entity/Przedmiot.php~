@@ -5,7 +5,6 @@
 namespace Studenciak\StudentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
 * @ORM\Entity
 * @ORM\Table(name="przedmiot")
@@ -13,30 +12,36 @@ use Doctrine\ORM\Mapping as ORM;
 
 class Przedmiot
 {
-	/**
+    /**
       * @ORM\Id
       * @ORM\Column(type="integer")
       * @ORM\GeneratedValue(strategy="AUTO")
       */
-	protected $id_przedmiotu;
-	
+    protected $id_przedmiotu;
+    
+
+      /**
+      * @ORM\ManyToOne(targetEntity="Osoba")
+      * @ORM\JoinColumn(name="przedmiot_osoba", referencedColumnName="id_osoby")
+      */
+
+    protected $id_osoby;
+    
+     /**
+      * @ORM\Column(type="string", length=255)
+      */
+    protected $nazwa;
 
      /**
       * @ORM\Column(type="integer")
       */
-	protected $id_osoby;
-	
-
-     /**
-      * @ORM\Column(type="integer")
-      */
-	protected $semestr;
-	
+    protected $semestr;
+    
 
      /**
       * @ORM\Column(type="string", length=255)
       */
-	protected $haslo;
+    protected $haslo;
 
     /**
      * Get id_przedmiotu
@@ -115,5 +120,58 @@ class Przedmiot
     public function getHaslo()
     {
         return $this->haslo;
+    }
+
+    /**
+     * Set nazwa
+     *
+     * @param string $nazwa
+     * @return Przedmiot
+     */
+    public function setNazwa($nazwa)
+    {
+        $this->nazwa = $nazwa;
+
+        return $this;
+    }
+
+    /**
+     * Get nazwa
+     *
+     * @return string 
+     */
+    public function getNazwa()
+    {
+        return $this->nazwa;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->id_osoby = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add id_osoby
+     *
+     * @param \Studenciak\StudentBundle\Entity\Osoba $idOsoby
+     * @return Przedmiot
+     */
+    public function addIdOsoby(\Studenciak\StudentBundle\Entity\Osoba $idOsoby)
+    {
+        $this->id_osoby[] = $idOsoby;
+
+        return $this;
+    }
+
+    /**
+     * Remove id_osoby
+     *
+     * @param \Studenciak\StudentBundle\Entity\Osoba $idOsoby
+     */
+    public function removeIdOsoby(\Studenciak\StudentBundle\Entity\Osoba $idOsoby)
+    {
+        $this->id_osoby->removeElement($idOsoby);
     }
 }

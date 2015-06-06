@@ -21,13 +21,16 @@ class Repozytorium
     protected $id_repozytorium;
     
 
-     /**
-      * @ORM\Column(type="integer")
+      /**
+      * @ORM\ManyToOne(targetEntity="Przedmiot")
+      * @ORM\JoinColumn(name="repo_przedmiot", referencedColumnName="id_przedmiotu")
       */
+
     protected $id_przedmiotu;
     
-    /**
-      * @ORM\Column(type="integer")
+      /**
+      * @ORM\ManyToOne(targetEntity="Osoba")
+      * @ORM\JoinColumn(name="repo_osoba", referencedColumnName="id_osoby")
       */
     protected $id_osoby;
     

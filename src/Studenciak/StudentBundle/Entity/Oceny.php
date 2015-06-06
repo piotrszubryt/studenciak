@@ -22,13 +22,15 @@ class Oceny
     
 
      /**
-      * @ORM\Column(type="integer")
+            * @ORM\ManyToOne(targetEntity="Kurs")
+      * @ORM\JoinColumn(name="oceny_kurs", referencedColumnName="id_kursu")
       */
     protected $id_kursu;
     
 
      /**
-      * @ORM\Column(type="integer")
+      * @ORM\ManyToOne(targetEntity="Osoba")
+      * @ORM\JoinColumn(name="oceny_osoba", referencedColumnName="id_osoby")
       */
     protected $id_osoby;
     

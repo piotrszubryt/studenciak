@@ -163,4 +163,27 @@ class Osoba
     {
         return $this->admin;
     }
+
+    /**
+     * Set aktywny
+     *
+     * @param integer $aktywny
+     * @return Osoba
+     */
+    public function setAktywny($aktywny)
+    {
+        $this->aktywny = $aktywny;
+
+        return $this;
+    }
+
+    /**
+     * Get aktywny
+     *
+     * @return integer 
+     */
+    public function getAktywny()
+    {
+        return $this->aktywny;
+    }
 }

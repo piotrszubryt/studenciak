@@ -42,8 +42,14 @@ logoutSession:
     path:     /logoutSession
     defaults: { _controller: StudenciakBundle:Page:logoutSession }
 
-dodaj:
-    path: /dodaj
-    defaults: { _controller: StudenciakBundle:Page:dodaj }
+usun:
+    path: /usun/{id}
+    defaults: { _controller: StudenciakBundle:Page:usun }
 
+usuwanie:
+    path: /usuwanie/{id}
+    defaults: { _controller: StudenciakBundle:Page:usuwanie }
 
+aktywuj:
+    path: /aktywuj/{id}
+    defaults: { _controller: StudenciakBundle:Page:aktywuj }

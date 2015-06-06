@@ -22,13 +22,15 @@ class Obecnosci
     
 
      /**
-      * @ORM\Column(type="integer")
+      * @ORM\ManyToOne(targetEntity="Osoba")
+      * @ORM\JoinColumn(name="obecnosci_osoba", referencedColumnName="id_osoby")
       */
     protected $id_osoby;
     
 
      /**
-      * @ORM\Column(type="integer")
+      * @ORM\ManyToOne(targetEntity="Zajecia")
+      * @ORM\JoinColumn(name="obecnosci_zajecia", referencedColumnName="id_zajecia")
       */
     protected $id_zajecia;
     

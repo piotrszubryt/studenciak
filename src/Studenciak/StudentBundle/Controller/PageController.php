@@ -10,10 +10,6 @@ use Studenciak\StudentBundle\Entity\Osoba;
 
 class PageController extends Controller
 {
-    //public function indexAction($name)
-   // {
-        //return $this->render('StudenciakBundle:Page:index.html.twig', array('name' => $name));
-   // }
 
 	public function indexAction()
 	{
@@ -134,20 +130,38 @@ class PageController extends Controller
 		return $this->redirect($this->generateUrl('course'));
 	}
 
-	public function dodajAction()
+	public function usunAction($id)
 	{
-		$session = $this->getRequest()->getSession();
+		$repo = $this->getDoctrine()->getRepository('StudenciakBundle:Osoba');
+		$osoba = $repo->find($id);
 		
-		$osoba = new Osoba();
+		return $this->render('StudenciakBundle:Page:extend/usun.html.twig', array('osoba' => $osoba));
+	}
 
-		$osoba->SetNazwisko($session->get('name'));
-		$osoba->SetEmail($session->get('email'));
+		public function usuwanieAction($id)
+	{
+		 $em = $this->getDoctrine()->getManager();
+	$repo = $this->getDoctrine()->getRepository('StudenciakBundle:Osoba');
+		$osoba = $repo->find($id);
+		$em->remove($osoba);
+$em->flush();
 
+		return $this->redirect($this->generateUrl('persons'));
+	}
+
+	public function aktywujAction($id)
+	{
 		$em = $this->getDoctrine()->getManager();
-		$em->persist($osoba);
-		$em->flush();
+	    $osoba = $em->getRepository('StudenciakBundle:Osoba')->find($id);
 
-		return new Response('Dodano osobe ' . $osoba->getNazwisko());
+	    if (!$osoba) {
+	       return $this->redirect($this->generateUrl('persons'));
+	    }
+
+	    $osoba->setAktywny(1);
+	    $em->flush();
+
+		return $this->redirect($this->generateUrl('persons'));
 	}
 
 }

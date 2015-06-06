@@ -17,6 +17,9 @@
                     Kursy
                 </a>
             </div>
+             {% if app.session.get('admin') == 1 %}
+     <a href="#"><input type="button" value="Dodaj kurs" /></a>
+     {% endif %}
             <h2>Moje kursy</h2>
             <table>
                 <tr><th data-sorted="desc">Nazwa</th><th>Prowadzący</th><th>Postęp</th><th></th></tr>

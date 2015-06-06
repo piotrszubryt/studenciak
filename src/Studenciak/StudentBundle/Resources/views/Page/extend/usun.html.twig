@@ -1,0 +1,24 @@
+{% extends 'StudenciakBundle:Page:base.html.twig' %}
+
+
+{% block title %}Osoby{% endblock %}
+
+{% block general %}active{% endblock %}
+{% block persons %}active{% endblock %}
+
+
+{% block view %}
+
+Czy na pewno chcesz usunąć wybraną osobę?
+<br /><br />
+<img src='{{ osoba.getZdjecie }}' />
+<br />
+{{ osoba.getNazwisko }}
+
+<br />
+
+{{ osoba.getEmail }}
+
+<br /><br />
+ <a href="{{ path('usuwanie', {'id' : osoba.getIdOsoby})}}"><input type="button" value="Usuń" /></a>
+{% endblock %}

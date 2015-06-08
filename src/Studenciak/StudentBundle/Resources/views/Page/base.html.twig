@@ -26,7 +26,6 @@
                 {% endimage %}
             </a>
         </div>
-        {% if app.session.get('email') == true %}
         <div class="db-side-group {% block general %}{% endblock %}" data-label="Ogólne">
             <a class="db-side-button {% block course %}{% endblock %}" href="{{ path('course') }}">
                 <i class="icon-graduation"></i> <span>Kursy</span>
@@ -45,8 +44,10 @@
             <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
                 <i class="icon-book-open"></i> <span>Dziennik</span>
             </a>
+            <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
+                <i class="icon-book-open"></i> <span>Dziennik</span>
+            </a>
         </div>
-        {% endif %}
         <div class="db-side-group {% block user %}{% endblock %}" data-label="Użytkownik">
 
             {% if app.session.get('email') == false %}

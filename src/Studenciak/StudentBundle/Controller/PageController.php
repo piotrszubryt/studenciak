@@ -501,11 +501,7 @@ class PageController extends Controller
 				$repozytoria[] = $rrepo;
 		}
 
-foreach($moje_repozytoria as $s)
-	$cos = $s->getTyp();
-
-
-		return $this->render('StudenciakBundle:Page:extend/repo.html.twig', array('moje_repozytoria' => $moje_repozytoria, 'repozytoria' => $repozytoria, 'cos' => $cos));
+		return $this->render('StudenciakBundle:Page:extend/repo.html.twig', array('moje_repozytoria' => $moje_repozytoria, 'repozytoria' => $repozytoria));
 	}
 
 public function repoDodajAction(Request $request)
@@ -526,24 +522,16 @@ public function repoDodajAction(Request $request)
 			->add('id_przedmiotu', 'choice', array('label'  => 'Przedmiot', 
 				'choice_list' => $wybor_przedmiotu))
 			->add('nazwa', 'text', array('label'  => 'Nazwa', 'max_length' => 45))
-			->add('typ', 'file', array('label'  => 'plik'))
+			->add('path', 'file', array('label'  => 'Plik'))
 			->getForm();
 
 
 
 			$form->handleRequest($request);
 			if ($form->isValid()) {
-				/*$extension = $form['typ']->getData()->guessExtension();
-				if($extension != '.txt')
-				{
-					$nzw = $extension;
-				}else{
-					$nzw = 'cs';
-				}
-				
-				$form['typ']->getData()->move('qwe', $nzw);*/
-				$task = $form->getData();
-				$em->persist($task);
+				$em = $this->getDoctrine()->getManager();
+				$repozytoria->upload();
+				$em->persist($repozytoria);
 				$em->flush();
 
 				return $this->redirect($this->generateUrl('repo'));

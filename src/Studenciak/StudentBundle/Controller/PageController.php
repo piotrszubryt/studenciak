@@ -533,7 +533,7 @@ public function repoDodajAction(Request $request)
 
 			$form->handleRequest($request);
 			if ($form->isValid()) {
-				$extension = $form['typ']->getData()->guessExtension();
+				/*$extension = $form['typ']->getData()->guessExtension();
 				if($extension != '.txt')
 				{
 					$nzw = $extension;
@@ -541,7 +541,7 @@ public function repoDodajAction(Request $request)
 					$nzw = 'cs';
 				}
 				
-				$form['typ']->getData()->move('qwe', $nzw);
+				$form['typ']->getData()->move('qwe', $nzw);*/
 				$task = $form->getData();
 				$em->persist($task);
 				$em->flush();

@@ -23,18 +23,17 @@ class Obecnosci
 
      /**
       * @ORM\ManyToOne(targetEntity="Osoba")
-      * @ORM\JoinColumn(name="obecnosci_osoba", referencedColumnName="id_osoby")
+      * @ORM\JoinColumn(name="id_osoby", referencedColumnName="id_osoby")
       */
     protected $id_osoby;
     
 
      /**
-      * @ORM\ManyToOne(targetEntity="Zajecia")
-      * @ORM\JoinColumn(name="obecnosci_zajecia", referencedColumnName="id_zajecia")
+      * @ORM\ManyToOne(targetEntity="Lekcje")
+      * @ORM\JoinColumn(name="id_lekcji", referencedColumnName="id_lekcji")
       */
-    protected $id_zajecia;
+    protected $id_lekcji;
     
-
 
     /**
      * Get id_obecnosci
@@ -49,10 +48,10 @@ class Obecnosci
     /**
      * Set id_osoby
      *
-     * @param integer $idOsoby
+     * @param \Studenciak\StudentBundle\Entity\Osoba $idOsoby
      * @return Obecnosci
      */
-    public function setIdOsoby($idOsoby)
+    public function setIdOsoby(\Studenciak\StudentBundle\Entity\Osoba $idOsoby = null)
     {
         $this->id_osoby = $idOsoby;
 
@@ -62,7 +61,7 @@ class Obecnosci
     /**
      * Get id_osoby
      *
-     * @return integer 
+     * @return \Studenciak\StudentBundle\Entity\Osoba 
      */
     public function getIdOsoby()
     {
@@ -70,25 +69,25 @@ class Obecnosci
     }
 
     /**
-     * Set id_zajecia
+     * Set id_lekcji
      *
-     * @param integer $idZajecia
+     * @param \Studenciak\StudentBundle\Entity\Lekcje $idLekcji
      * @return Obecnosci
      */
-    public function setIdZajecia($idZajecia)
+    public function setIdLekcji(\Studenciak\StudentBundle\Entity\Lekcje $idLekcji = null)
     {
-        $this->id_zajecia = $idZajecia;
+        $this->id_lekcji = $idLekcji;
 
         return $this;
     }
 
     /**
-     * Get id_zajecia
+     * Get id_lekcji
      *
-     * @return integer 
+     * @return \Studenciak\StudentBundle\Entity\Lekcje 
      */
-    public function getIdZajecia()
+    public function getIdLekcji()
     {
-        return $this->id_zajecia;
+        return $this->id_lekcji;
     }
 }

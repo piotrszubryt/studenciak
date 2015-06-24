@@ -18,75 +18,164 @@ class Zajecia
       * @ORM\Column(type="integer")
       * @ORM\GeneratedValue(strategy="AUTO")
       */
-	protected $id_zajecia;
+	protected $id_zajec;
 	
 
      /**
-      * @ORM\Column(type="string", length=255)
+      * @ORM\ManyToOne(targetEntity="Osoba")
+      * @ORM\JoinColumn(name="id_osoby", referencedColumnName="id_osoby")
       */
-	protected $temat;
+	protected $id_osoby;
 	
+	
+
+     /**
+      * @ORM\Column(type="string", length=20)
+      */
+	protected $typ_zajec;
+    
+
+     /**
+      * @ORM\Column(type="string", length=45)
+      */
+    protected $sala;
+
 
      /**
       * @ORM\Column(type="datetime")
       */
-	protected $data;
-	
+    protected $termin;
+
+
+     /**
+      * @ORM\ManyToOne(targetEntity="Przedmiot")
+      * @ORM\JoinColumn(name="id_przedmiotu", referencedColumnName="id_przedmiotu")
+      */
+    protected $id_przedmiotu;
 
 
     /**
-     * Get id_zajecia
+     * Get id_zajec
      *
      * @return integer 
      */
-    public function getIdZajecia()
+    public function getIdZajec()
     {
-        return $this->id_zajecia;
+        return $this->id_zajec;
     }
 
     /**
-     * Set temat
+     * Set typ_zajec
      *
-     * @param string $temat
+     * @param string $typZajec
      * @return Zajecia
      */
-    public function setTemat($temat)
+    public function setTypZajec($typZajec)
     {
-        $this->temat = $temat;
+        $this->typ_zajec = $typZajec;
 
         return $this;
     }
 
     /**
-     * Get temat
+     * Get typ_zajec
      *
      * @return string 
      */
-    public function getTemat()
+    public function getTypZajec()
     {
-        return $this->temat;
+        return $this->typ_zajec;
     }
 
     /**
-     * Set data
+     * Set sala
      *
-     * @param \DateTime $data
+     * @param string $sala
      * @return Zajecia
      */
-    public function setData($data)
+    public function setSala($sala)
     {
-        $this->data = $data;
+        $this->sala = $sala;
 
         return $this;
     }
 
     /**
-     * Get data
+     * Get sala
+     *
+     * @return string 
+     */
+    public function getSala()
+    {
+        return $this->sala;
+    }
+
+    /**
+     * Set termin
+     *
+     * @param \DateTime $termin
+     * @return Zajecia
+     */
+    public function setTermin($termin)
+    {
+        $this->termin = $termin;
+
+        return $this;
+    }
+
+    /**
+     * Get termin
      *
      * @return \DateTime 
      */
-    public function getData()
+    public function getTermin()
     {
-        return $this->data;
+        return $this->termin;
+    }
+
+    /**
+     * Set id_osoby
+     *
+     * @param \Studenciak\StudentBundle\Entity\Osoba $idOsoby
+     * @return Zajecia
+     */
+    public function setIdOsoby(\Studenciak\StudentBundle\Entity\Osoba $idOsoby = null)
+    {
+        $this->id_osoby = $idOsoby;
+
+        return $this;
+    }
+
+    /**
+     * Get id_osoby
+     *
+     * @return \Studenciak\StudentBundle\Entity\Osoba 
+     */
+    public function getIdOsoby()
+    {
+        return $this->id_osoby;
+    }
+
+    /**
+     * Set id_przedmiotu
+     *
+     * @param \Studenciak\StudentBundle\Entity\Przedmiot $idPrzedmiotu
+     * @return Zajecia
+     */
+    public function setIdPrzedmiotu(\Studenciak\StudentBundle\Entity\Przedmiot $idPrzedmiotu = null)
+    {
+        $this->id_przedmiotu = $idPrzedmiotu;
+
+        return $this;
+    }
+
+    /**
+     * Get id_przedmiotu
+     *
+     * @return \Studenciak\StudentBundle\Entity\Przedmiot 
+     */
+    public function getIdPrzedmiotu()
+    {
+        return $this->id_przedmiotu;
     }
 }

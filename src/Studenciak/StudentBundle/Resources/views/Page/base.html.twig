@@ -13,11 +13,14 @@
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    {% block head %}{% endblock %}
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
-    {% block body %}{% endblock %}
+    {% block body %}
+    {% endblock %}
     <div class="main">
+
         <div class="db-side">
            <div class="db-logotype">
                <a href="#">
@@ -26,48 +29,49 @@
                 {% endimage %}
             </a>
         </div>
-        <div class="db-side-group {% block general %}{% endblock %}" data-label="Ogólne">
-            <a class="db-side-button {% block course %}{% endblock %}" href="{{ path('course') }}">
-                <i class="icon-graduation"></i> <span>Kursy</span>
-            </a>
-            <a class="db-side-button {% block repo %}{% endblock %}" href="{{ path('repo') }}">
-                <i class="icon-notebook"></i> <span>Repozytoria</span>
-            </a>
-            <a class="db-side-button {% block groups %}{% endblock %}" href="{{ path('groups') }}">
-                <i class="icon-drawer"></i> <span>Grupy</span>
-            </a>
-            {% if app.session.get('admin') == 1 %}
-            <a class="db-side-button {% block persons %}{% endblock %}" href="{{ path('persons') }}">
-                <i class="icon-drawer"></i> <span>Osoby</span>
-            </a>
-            {% endif %}
-            <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
-                <i class="icon-book-open"></i> <span>Dziennik</span>
-            </a>
-            <a class="db-side-button {% block diary %}{% endblock %}" href="{{ path('diary') }}">
-                <i class="icon-book-open"></i> <span>Dziennik</span>
-            </a>
-        </div>
+
+        {% if app.session.get('email') == true %}
+            <div class="db-side-group {% block general %}{% endblock %}" data-label="Ogólne">
+                <a class="db-side-button {% block przedmiot %}{% endblock %}" href="{{ path('przedmiot') }}">
+                    <i class="icon-graduation"></i> <span>Przedmioty</span>
+                </a>
+                <a class="db-side-button {% block repo %}{% endblock %}" href="{{ path('repo') }}">
+                    <i class="icon-social-dropbox"></i> <span>Repozytoria</span>
+                </a>
+                <a class="db-side-button {% block grupy %}{% endblock %}" href="{{ path('grupy') }}">
+                    <i class="icon-users"></i> <span>Grupy</span>
+                </a>
+                {% if app.session.get('admin') == 1 %}
+                    <a class="db-side-button {% block osoby %}{% endblock %}" href="{{ path('osoby') }}">
+                        <i class="icon-user-following"></i> <span>Osoby</span>
+                    </a>
+                {% endif %}
+                <a class="db-side-button {% block dziennik %}{% endblock %}" href="{{ path('dziennik') }}">
+                    <i class="icon-book-open"></i> <span>Dziennik</span>
+                </a>
+            </div>
+        {% endif %}
         <div class="db-side-group {% block user %}{% endblock %}" data-label="Użytkownik">
 
             {% if app.session.get('email') == false %}
-            <a class="db-side-button {% block login %}{% endblock %}" href="{{ path('login') }}">
-                <i class="icon-logout"></i> <span>Zaloguj</span>
-            </a>
-            {% else %}
-            <a class="db-side-button {% block profile %}{% endblock %}" href="{{ path('profile') }}">
-                <i class="icon-user-male"></i> <span>Mój profil</span>
-            </a>
-            <a class="db-side-button {% block logout %}{% endblock %}" href="{{ path('logout') }}">
-                <i class="icon-logout"></i> <span>Wyloguj</span>
-            </a>
+                <a class="db-side-button {% block login %}{% endblock %}" href="{{ path('login') }}">
+                    <i class="icon-login"></i> <span>Zaloguj</span>
+                </a>
+                {% else %}
+                <a class="db-side-button {% block profil %}{% endblock %}" href="{{ path('profil') }}">
+                    <i class="icon-user"></i> <span>Mój profil</span>
+                </a>
+                <a class="db-side-button {% block logout %}{% endblock %}" href="{{ path('logout') }}">
+                    <i class="icon-logout"></i> <span>Wyloguj</span>
+                </a>
             {% endif %}
         </div>
     </div>
     <div class="db-side-cloak"></div>
     <div class="db-view">
-      {% block view %}{% endblock %}
-  </div>
-</div>
+        {% block view %}{% endblock %}
+        </div>
+        
+    </div>
 </body>
 </html>

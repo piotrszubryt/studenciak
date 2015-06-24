@@ -39,7 +39,7 @@ twig:
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
+    use_controller: true
     bundles:        [ StudenciakBundle ]
     #java: /usr/bin/java
     filters:
@@ -78,3 +78,5 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+twig:
+    cache: false

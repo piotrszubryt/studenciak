@@ -11,12 +11,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
 * @ORM\Entity
+* @ORM\HasLifecycleCallbacks
 * @ORM\Table(name="repozytorium")
 */
 
 class Repozytorium
 {
-	/**
+    /**
       * @ORM\Id
       * @ORM\Column(type="integer")
       * @ORM\GeneratedValue(strategy="AUTO")
@@ -50,53 +51,9 @@ class Repozytorium
     public $path;
 
      /**
-     * @Assert\File(maxSize="5242880")
+     * @Assert\File(maxSize="5000000")
      */
     public $file;
-
-    public function getAbsolutePath()
-    {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
-        return 'repozytoria';
-    }
-
-    public function upload()
-{
-    // zmienna file może być pusta jeśli pole nie jest wymagane
-    if (null === $this->file) {
-        return;
-    }
-
-    // używamy oryginalnej nazwy pliku ale nie powinieneś tego robić
-    // aby zabezpieczyć się przed ewentualnymi problemami w bezpieczeństwie
-
-    // metoda move jako atrybuty przyjmuje ścieżkę docelową gdzie trafi przenoszony plik
-    // oraz ścieżkę z której ma przenieś plik
-    //$this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
-    $this->file->move('/web/repozytoria', $this->file->getClientOriginalName());
-    // ustaw zmienną patch ścieżką do zapisanego pliku
-    $this->setPath($this->file->getClientOriginalName());
-
-    // wyczyść zmienną file ponieważ już jej nie potrzebujemy
-    $this->file = null;
-}
-
     
     /**
      * Get id_repozytorium
@@ -106,29 +63,6 @@ class Repozytorium
     public function getIdRepozytorium()
     {
         return $this->id_repozytorium;
-    }
-
-    /**
-     * Set nazwa
-     *
-     * @param string $nazwa
-     * @return Repozytorium
-     */
-    public function setNazwa($nazwa)
-    {
-        $this->nazwa = $nazwa;
-
-        return $this;
-    }
-
-    /**
-     * Get nazwa
-     *
-     * @return string 
-     */
-    public function getNazwa()
-    {
-        return $this->nazwa;
     }
 
     /**
@@ -177,12 +111,33 @@ class Repozytorium
         return $this->id_osoby;
     }
 
+        /**
+     * Set nazwa
+     *
+     * @param string $nazwa
+     * @return Document
+     */
+    public function setNazwa($nazwa)
+    {
+        $this->nazwa = $nazwa;
+
+        return $this;
+    }
+
+    /**
+     * Get nazwa
+     * @return string 
+     */
+    public function getNazwa()
+    {
+        return $this->nazwa;
+    }
 
     /**
      * Set path
      *
      * @param string $path
-     * @return Repozytorium
+     * @return Document
      */
     public function setPath($path)
     {
@@ -200,4 +155,75 @@ class Repozytorium
     {
         return $this->path;
     }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return 'repozytoria';
+    }
+     /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            // zrób cokolwiek chcesz aby wygenerować unikalną nazwę
+            $this->setPath(uniqid().'.'.$this->file->guessExtension());
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        // musisz wyrzucać tutaj wyjątek jeśli plik nie może zostać przeniesiony
+        // w tym przypadku encja nie zostanie zapisana do bazy
+        // metoda move() obiektu UploadedFile robi to automatycznie
+        $this->file->move($this->getUploadRootDir(), $this->path);
+
+        unset($this->file);
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+
+    public function rem()
+    {
+        
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+        
+    }
+
 }

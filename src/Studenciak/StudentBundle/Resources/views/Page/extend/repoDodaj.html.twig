@@ -34,11 +34,9 @@
 			<h2>Dodawanie repozytorium</h2>
 			<br />
 
-
-			
-			{{ form_start(form) }}
+{{ form_start(form) }}
 			{{ form_errors(form) }}
-			
+
 			<table>
 				<tr>
 					<td>{{ form_label(form.id_przedmiotu) }}</td>
@@ -49,8 +47,8 @@
 					<td><span class="form-text-input">{{ form_widget(form.nazwa) }}{{ form_errors(form.nazwa) }}</span></td>
 				</tr>
 				<tr>
-					<td>{{ form_label(form.path) }}</td>
-					<td>{{ form_widget(form.path) }}{{ form_errors(form.path) }}</td>
+					<td>{{ form_label(form.file) }}</td>
+					<td>{{ form_widget(form.file) }}{{ form_errors(form.file) }}</td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="Dodaj Repozytorium" /></td>
@@ -58,10 +56,16 @@
 			</table>
 
 			{{ form_end(form) }}
+			
+
 
 			
 
 		</div>
+
+		
+
+
 
 
 

@@ -17,7 +17,6 @@ use Studenciak\StudentBundle\Entity\OsobaPrzedmiot;
 use Studenciak\StudentBundle\Entity\OsobaZajecia;
 use Studenciak\StudentBundle\Entity\Repozytorium;
 
-
 class PageController extends Controller
 {
 
@@ -500,8 +499,19 @@ class PageController extends Controller
 			if (!(in_array($rrepo, $moje_repozytoria)))
 				$repozytoria[] = $rrepo;
 		}
+		
 
-		return $this->render('StudenciakBundle:Page:extend/repo.html.twig', array('moje_repozytoria' => $moje_repozytoria, 'repozytoria' => $repozytoria));
+		
+
+		$uczen_przemioty = $this->getDoctrine()->getRepository('StudenciakBundle:OsobaPrzedmiot')->findBy(array('id_osoby'=>$session->get('id'))); // pobieram przemioty na ktorych zapisany jest uczen
+
+		$em = $this->getDoctrine()->getRepository('StudenciakBundle:Repozytorium');
+		$uczen_repozytoria = array();
+		$uczen_repozytoria = $em->findBy(array('id_przedmiotu'=>$uczen_przemioty[0]->getIdPrzedmiotu()));
+
+
+
+		return $this->render('StudenciakBundle:Page:extend/repo.html.twig', array('moje_repozytoria' => $moje_repozytoria, 'repozytoria' => $repozytoria, 'uczen_repozytoria' => $uczen_repozytoria));
 	}
 
 public function repoDodajAction(Request $request)
@@ -511,6 +521,7 @@ public function repoDodajAction(Request $request)
 
 		if ($session->get('admin'))
 		{
+
 			$osoba = $em->getRepository('StudenciakBundle:Osoba')->findOneByEmail($session->get('email'));	//pobieramy siebie z bazy
 			$przedmioty = $em->getRepository('StudenciakBundle:Przedmiot')->findAll();	//pobieramy przedmioty
 			$wybor_przedmiotu = new ObjectChoiceList($przedmioty, 'nazwa', array(), null, 'id_przedmiotu');	//lista wyboru pzedmiotow
@@ -518,32 +529,53 @@ public function repoDodajAction(Request $request)
 			$repozytoria = new Repozytorium();
 			$repozytoria->setIdOsoby($osoba);			//id przedmiotu do ktorego dodajemy
 
+
 			$form = $this->createFormBuilder($repozytoria)
 			->add('id_przedmiotu', 'choice', array('label'  => 'Przedmiot', 
 				'choice_list' => $wybor_przedmiotu))
 			->add('nazwa', 'text', array('label'  => 'Nazwa', 'max_length' => 45))
-			->add('path', 'file', array('label'  => 'Plik'))
+			->add('file', 'file', array('label'  => 'Plik'))
 			->getForm();
 
+	    	if ($request->isMethod('POST')) {
+	        	$form->submit($request);
+	        	if ($form->isValid()) {
+	            	$em = $this->getDoctrine()->getEntityManager();
+	            	
+	            	$em->persist($repozytoria);
+	            	$em->flush();
 
+	            	return $this->redirect($this->generateUrl('repo'));
+	        	}
+	    	}
 
-			$form->handleRequest($request);
-			if ($form->isValid()) {
-				$em = $this->getDoctrine()->getManager();
-				$repozytoria->upload();
-				$em->persist($repozytoria);
-				$em->flush();
+	    	return $this->render('StudenciakBundle:Page:extend/repoDodaj.html.twig', array('form' => $form->createView()));
 
-				return $this->redirect($this->generateUrl('repo'));
-			}
-
-			return $this->render('StudenciakBundle:Page:extend/repoDodaj.html.twig', array('form' => $form->createView()));
 		}
-
 		else
 			return $this->redirect($this->generateUrl('repo'));
 
 	}
+	public function repoUsunAction($id)
+	{
+		$repo = $this->getDoctrine()->getRepository('StudenciakBundle:Repozytorium');
+		$tmp = $repo->find($id);
+
+		return $this->render('StudenciakBundle:Page:extend/repoUsun.html.twig', array('repo' => $tmp));
+	}
+	public function repoUsuwanieAction($id)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$tmp = $this->getDoctrine()->getRepository('StudenciakBundle:Repozytorium');
+		$repozytoria = new Repozytorium();
+		$repo = $tmp->find($id);
+		$em->remove($repo);
+		$repozytoria->rem();
+		$em->flush();
+
+		return $this->redirect($this->generateUrl('repo'));
+	}
 }
+
 
 

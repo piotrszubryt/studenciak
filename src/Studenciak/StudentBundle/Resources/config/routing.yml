@@ -52,7 +52,7 @@ osobaUsuwanie:
 
 osobaAdmin:
     path: /osoby/admin/{tryb}/{id}
-    defaults: { _controller: StudenciakBundle:Page:osobaAdmin }  
+    defaults: { _controller: StudenciakBundle:Page:osobaAdmin }
 
 aktywuj:
     path: /osoby/aktywuj/{id}
@@ -89,6 +89,14 @@ zajeciaZapiszSie:
 repoDodaj:
     path: /repo/dodaj
     defaults: { _controller: StudenciakBundle:Page:repoDodaj }
+
+repoUsun:
+    path: /repo/usun/{id}
+    defaults: { _controller: StudenciakBundle:Page:repoUsun }
+
+repoUsuwanie:
+    path: /repo/usuwanie/{id}
+    defaults: { _controller: StudenciakBundle:Page:repoUsuwanie }
 
 
 

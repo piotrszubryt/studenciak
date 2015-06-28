@@ -33,66 +33,101 @@
             </a>
         </div>
 
-    {% endif %}
+    
 
 
-{% if moje_repozytoria %} 
-        <h2>Moje Repozytoria</h2>
-        <table>
-            <tr>
-                <th width="40%">Nazwa</th>
-                <th width="20%">Prowadzący</th>
-                <th width="35%">Przedmiot</th>
-                <th width="5%">Pobierz</th>
-            </tr>
-
-
-            {% for repozytorium in moje_repozytoria %}
-
-                <tr>
-                    <td>{{ repozytorium.getNazwa }} </td>
-                    <td>{{ repozytorium.getIdOsoby.getNazwisko }}</td>
-                    <td>{{ repozytorium.getIdPrzedmiotu.getNazwa }}</td>
-                    <td><a href="../Repozytoria/{{ repozytorium.getNazwa }}"><i class="icon-settings"></i></a></td>
-
-                </tr>
-
-
-
-            {% endfor %}
-        </table>
-        <br />
-    {% endif %}
-    {% if repozytoria %} 
         {% if moje_repozytoria %} 
-            <h2>Pozostałe Repozytoria</h2>
-            {% else %}
-            <h2>Repozytoria</h2>
-        {% endif %}
-        
-        <table>
-            <tr>
-                <th width="40%">Nazwa</th>
-                <th width="20%">Prowadzący</th>
-                <th width="35%">Przedmiot</th>
-                <th width="5%">Pobierz</th>
-            </tr>
-
-
-            {% for repozytorium in repozytoria %}
-
+            <h2>Moje Repozytoria</h2>
+            <table>
                 <tr>
-                    <td>{{ repozytorium.getNazwa }} </td>
-                    <td>{{ repozytorium.getIdOsoby.getNazwisko }}</td>
-                    <td>{{ repozytorium.getIdPrzedmiotu.getNazwa }}</td>
-                    <td><a href="{{ repozytorium.getTyp }}"><i class="icon-settings"></i></a></td>
+                    <th width="40%">Nazwa</th>
+                    <th width="20%">Prowadzący</th>
+                    <th width="30%">Przedmiot</th>
+                    <th width="5%">Pobierz</th>
+                    <th width="5%">Usun</th>
                 </tr>
 
 
+                {% for repozytorium in moje_repozytoria %}
 
-            {% endfor %}
-        </table>
+                    <tr>
+                        <td>{{ repozytorium.getNazwa }} </td>
+                        <td>{{ repozytorium.getIdOsoby.getNazwisko }}</td>
+                        <td>{{ repozytorium.getIdPrzedmiotu.getNazwa }}</td>
+                        <td><a href="../Repozytoria/{{ repozytorium.getPath }}" target="_blank">Pobierz</a></td>
+                        <td><a href="{{ path('repoUsun', {'id' : repozytorium.getIdRepozytorium})}}">Usun</a></td>
+                    </tr>
+
+
+
+                {% endfor %}
+            </table>
+            <br />
+        {% endif %}
+        {% if repozytoria %} 
+            {% if moje_repozytoria %} 
+                <h2>Pozostałe Repozytoria</h2>
+                {% else %}
+                <h2>Repozytoria</h2>
+            {% endif %}
+            
+            <table>
+                <tr>
+                    <th width="40%">Nazwa</th>
+                    <th width="20%">Prowadzący</th>
+                    <th width="30%">Przedmiot</th>
+                    <th width="5%">Pobierz</th>
+                    <th width="5%">Usun</th>
+                </tr>
+
+
+                {% for repozytorium in moje_repozytoria %}
+
+                    <tr>
+                        <td>{{ repozytorium.getNazwa }} </td>
+                        <td>{{ repozytorium.getIdOsoby.getNazwisko }}</td>
+                        <td>{{ repozytorium.getIdPrzedmiotu.getNazwa }}</td>
+                        <td><a href="../Repozytoria/{{ repozytorium.getPath }}" target="_blank">Pobierz</a></td>
+                        <td><a href="{{ path('repoUsun', {'id' : repozytorium.getIdRepozytorium})}}">Usun</a></td>
+                    </tr>
+
+
+
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% else %}
+    
+        {% if uczen_repozytoria %}
+            <h2>Repozytoria</h2>
+           <table>
+                <tr>
+                    <th width="40%">Nazwa</th>
+                    <th width="20%">Prowadzący</th>
+                    <th width="30%">Przedmiot</th>
+                    <th width="5%">Pobierz</th>
+                    
+                </tr>
+
+
+                {% for repozytorium in uczen_repozytoria %}
+
+                    <tr>
+                        <td>{{ repozytorium.getNazwa }} </td>
+                        <td>{{ repozytorium.getIdOsoby.getNazwisko }}</td>
+                        <td>{{ repozytorium.getIdPrzedmiotu.getNazwa }}</td>
+                        <td><a href="../Repozytoria/{{ repozytorium.getPath }}" target="_blank">Pobierz</a></td>
+                        
+                    </tr>
+
+
+
+                {% endfor %}
+            </table>
+                
+        {% endif %}
     {% endif %}
+
 {% endblock %}
 
 

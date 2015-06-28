@@ -18,4 +18,30 @@ generuje encje
 
 php app/console doctrine:schema:update --force
 
-uaktualnia baze danych
+uaktualnia baze danycha
+
+
+/usr/local/php-5.4.35/bin/php -d memory_limit=-1 composer.phar update 
+
+			{{ form_start(form) }}
+			{{ form_errors(form) }}
+
+			<table>
+				<tr>
+					<td>{{ form_label(form.id_przedmiotu) }}</td>
+					<td>{{ form_widget(form.id_przedmiotu) }}{{ form_errors(form.id_przedmiotu) }}</td>
+				</tr>
+				<tr>
+					<td>{{ form_label(form.nazwa) }}</td>
+					<td><span class="form-text-input">{{ form_widget(form.nazwa) }}{{ form_errors(form.nazwa) }}</span></td>
+				</tr>
+				<tr>
+					<td>{{ form_label(form.path) }}</td>
+					<td>{{ form_widget(form.path) }}{{ form_errors(form.path) }}</td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="Dodaj Repozytorium" /></td>
+				</tr>
+			</table>
+
+			{{ form_end(form) }}
